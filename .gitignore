@@ -1,13 +1,16 @@
-# 忽略环境配置文件（核心）
+# 仅忽略敏感环境配置文件（核心，必须保留）
 **/.env
 
-# 忽略Python缓存文件
+# 忽略Python编译缓存
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
 
 # 忽略日志、临时文件
 logs/
 temp/
-# 忽略OSS配置类文件
-config/oss_config.py
+results/
+
+# 忽略PyCharm配置（可选，可保留）
+.idea/
