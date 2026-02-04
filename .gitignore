@@ -1,0 +1,13 @@
+# 忽略环境配置文件（核心）
+**/.env
+
+# 忽略Python缓存文件
+__pycache__/
+*.pyc
+*.pyo
+
+# 忽略日志、临时文件
+logs/
+temp/
+# 忽略OSS配置类文件
+config/oss_config.py
