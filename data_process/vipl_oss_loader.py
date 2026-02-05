@@ -4,7 +4,6 @@ import tempfile
 from utils.oss_file_reader import oss_read_file_stream, oss_write_log
 from config.oss_config import bucket
 
-
 # ===================== 核心配置（严格匹配你的OSS真实路径） =====================
 # OSS上VIPL数据集的根目录（来自你的截图）
 VIPL_OSS_ROOT_PATH = "datasets/vipl/train/1/"
