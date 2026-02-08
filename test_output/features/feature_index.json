@@ -1,0 +1,13 @@
+{
+  "blocks": [
+    {
+      "block_id": 0,
+      "filename": "features_block_0000.npz",
+      "n_samples": 5,
+      "file_size_mb": 0.00136566162109375,
+      "created_at": "2026-02-08T21:31:48.759737"
+    }
+  ],
+  "total_samples": 5,
+  "created_at": "2026-02-08T21:31:48.759737"
+}
