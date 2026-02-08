@@ -1,0 +1,31 @@
+======================================================================
+2.9 ROI提取模块测试报告
+======================================================================
+测试时间: 2026-02-08 15:49:49
+测试环境: Windows
+测试帧尺寸: 1280x720
+
+【功能测试】
+  人脸检测: ✅ 成功
+  ROI提取: ✅ 成功
+  缓存管理: ✅ 成功
+
+【性能测试】
+  ROI提取耗时: 0.00 ms
+  性能目标: ≤10ms
+  性能达标: ✅ 是
+
+【提取结果】
+  forehead: 99x42 像素
+  left_cheek: 21x21 像素
+  right_cheek: 21x21 像素
+
+【输出文件】
+  可视化结果: D:\bishe\spo2_estimation\test_output/roi/roi_visualization.jpg
+  额头ROI: D:\bishe\spo2_estimation\test_output/roi/forehead.jpg
+  左脸颊ROI: D:\bishe\spo2_estimation\test_output/roi/left_cheek.jpg
+  右脸颊ROI: D:\bishe\spo2_estimation\test_output/roi/right_cheek.jpg
+
+【结论】
+  ROI提取模块开发完成，性能达标✅
+======================================================================
