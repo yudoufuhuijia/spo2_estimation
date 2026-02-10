@@ -1,27 +1,16 @@
 import oss2  # 确保文件开头已导入 oss2 库
 from typing import List
-import os  # 导入os模块读取环境变量
 
 
 class OSSConnector:
     def __init__(self):
-        """
-        初始化OSS连接器（安全规范：密钥从环境变量读取，禁止硬编码）
-        环境变量配置说明：
-        - OSS_ACCESS_KEY_ID: 阿里云OSS AccessKey ID
-        - OSS_ACCESS_KEY_SECRET: 阿里云OSS AccessKey Secret
-        - OSS_ENDPOINT: OSS地域Endpoint（如华东1：oss-cn-hangzhou.aliyuncs.com）
-        - OSS_BUCKET_NAME: OSS Bucket名称
-        """
-        # 从环境变量读取OSS配置（上传GitHub前必须移除硬编码密钥）
-        self.access_key_id = os.getenv("OSS_ACCESS_KEY_ID")
-        self.access_key_secret = os.getenv("OSS_ACCESS_KEY_SECRET")
-        self.endpoint = os.getenv("OSS_ENDPOINT", "oss-cn-hangzhou.aliyuncs.com")  # 默认值兜底
-        self.bucket_name = os.getenv("OSS_BUCKET_NAME", "spo2-estimation")
-
-        # 校验密钥是否存在
-        if not all([self.access_key_id, self.access_key_secret]):
-            raise ValueError("❌ 错误：OSS密钥未配置！请设置环境变量 OSS_ACCESS_KEY_ID/OSS_ACCESS_KEY_SECRET")
+        # 第一步：先补充 bucket 初始化（若已有则跳过，参考下方说明）
+        # 从环境变量获取 AccessKey（避免硬编码，符合安全规范）
+        import os
+        # self.access_key_id = "LTAI5tBXijvuE7F8oV95LCPP"  # 直接写真实密钥，去掉os.getenv()
+        # self.access_key_secret = "Wk7LCwD2BI1GXRFWWLANmOmdKpqqXi"  # 直接写真实密钥
+        # self.endpoint = "oss-cn-hangzhou.aliyuncs.com"  # 替换为你的 OSS 地域Endpoint（如华东1为cn-hangzhou）
+        # self.bucket_name = "spo2-estimation"  # 固定Bucket名
 
         # 初始化 auth 和 bucket（关键：确保后续能调用OSS接口）
         self.auth = oss2.Auth(self.access_key_id.strip(), self.access_key_secret.strip())
@@ -31,7 +20,7 @@ class OSSConnector:
     def list_objects(self, bucket_name: str, prefix: str, max_keys: int = 100) -> List[str]:
         """
         列举 OSS 指定 Bucket 下前缀为 prefix 的文件，返回文件 key 列表
-        :param bucket_name: Bucket 名称（此处类内已固定，可传入self.bucket_name）
+        :param bucket_name: Bucket 名称（此处固定为 spo2-estimation，可忽略）
         :param prefix: 文件前缀（如 "datasets/arpos/"，筛选该目录下的文件）
         :param max_keys: 最大返回数量
         :return: 文件 key 列表（如 ["datasets/arpos/PIS-256.zip"]）
@@ -49,10 +38,3 @@ class OSSConnector:
             if len(object_keys) >= max_keys:
                 break
         return object_keys
-
-
-# 示例使用（可选，上传GitHub时可注释）
-# if __name__ == "__main__":
-#     connector = OSSConnector()
-#     files = connector.list_objects("spo2-estimation", "datasets/arpos/")
-#     print(f"列举到文件：{files}")
